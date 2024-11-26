@@ -3,6 +3,10 @@ import matplotlib.pyplot as plt
 from scipy.integrate import solve_ivp
 from scipy.interpolate import interp1d
 
+#ipt flying rocket
+
+juanjose = 1
+
 # Parámetros 
 a_b = 25472.3537562965e-6 #+ 136.073682289469e-6 # Área de la sección transversal de la botella
 a_e = 59.1737825859559e-6 #- 0.192821119516073e-6 # Área de la sección transversal de la boquilla de la botella
