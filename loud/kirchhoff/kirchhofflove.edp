@@ -1,0 +1,48 @@
+real a = 1.0;      // Longitud de la placa en x
+real b = 1.0;      // Longitud de la placa en y
+real E = 1e5;      // Módulo de Young (elasticidad)
+real nu = 0.3;     // Coeficiente de Poisson
+real h = 0.01;     // Espesor de la placa
+real rho = 1.0;    // Densidad de la placa
+real T = 2.0;      // Tiempo total de simulación
+real dt = 0.01;    // Paso temporal
+
+real D = E*h^3 / (12*(1 - nu^2));  // Rigidez de flexión de la placa
+
+mesh Th = square(50, 50, [x, y]);
+fespace Vh(Th, P2);
+
+Vh w, w0, w1;  // w es el desplazamiento, w0 y w1 son las condiciones iniciales
+
+func f = exp(-((x-a/2)^2 + (y-b/2)^2) / 0.1) * sin(2*pi*time);
+
+w0 = 0;  // Desplazamiento inicial en 0
+w1 = 0;  // Velocidad inicial en 0
+
+
+problem Kirchhoff(w, v)
+    = int2d(Th)( D * (dx(dx(w)) + dy(dy(w))) * (dx(dx(v)) + dy(dy(v))))  
+    - int2d(Th)(f * v)  
+    + int2d(Th)( rho*h * (w - 2*w0 + w1) * v / dt^2 )
+    + on(1, w = 0)  // Condición de frontera empotrada en x = 0
+    + on(2, dx(w) = 0, dy(w) = 0)  // Condición libre en x = b
+    + on(3, dy(w) = 0)  // Condición libre en y = 0
+    + on(4, dy(w) = 0); // Condición libre en y = a
+
+real time = 0.0;
+for (int t = 0; t < int(T/dt); t++) {
+
+    Kirchhoff;
+
+    w0 = w;
+    w1 = w0 + dt * (w - w0); 
+
+    if (t % 10 == 0) {
+        plot(w, value = true, fill = true, color = 1, wait = true);
+    }
+
+    time += dt;
+}
+
+save("desplazamiento.txt", w);
+
