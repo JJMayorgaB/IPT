@@ -13,8 +13,7 @@ def integrand(k_vals, x, t, EI, rho, A, Delta_t, x_o, r_o, t_i):
     return term1 * term2 * term3 * term4
 
 def w_function(x_vals, t_vals, EI, rho, A, Delta_t, x_o, r_o, t_0, N):
-    
-    k_vals_positive = np.logspace(-2, 1, 500)  # Escala logarítmica 
+    k_vals_positive = np.logspace(-2, 1, 500)  # Escala logarítmica
     k_vals_negative = -k_vals_positive
     k_vals_full = np.concatenate((k_vals_negative, k_vals_positive))
     
@@ -24,20 +23,19 @@ def w_function(x_vals, t_vals, EI, rho, A, Delta_t, x_o, r_o, t_0, N):
     
     w_results = np.zeros_like(x_mesh, dtype=complex)
     
-    for b in range(N+1):
-        
+    for b in range(N + 1):
         t_i_val = t_0 * b
         
-        integrand_vals = integrand(k_vals_full[:, np.newaxis, np.newaxis], 
-                                   x_mesh, t_mesh, 
+        integrand_vals = integrand(k_vals_full, x_mesh, t_mesh, 
                                    EI, rho, A, Delta_t, x_o, r_o, t_i_val)
         
-        integral_result = simpson(y=integrand_vals, x=k_vals_full, axis=0)
+        integral_result = simpson(y=integrand_vals, x=k_vals_full, axis=0)  # Integración sobre k_vals
         w_results += integral_result
     
     w_results *= prefactor
     
     return w_results
+
 
 
 EI = 1.0
