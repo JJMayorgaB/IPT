@@ -64,19 +64,21 @@ w_at_x_eval = w_results[x_eval_index, :]
 
 #grafica de w en (x,t), comportamiento completo
 plt.figure(figsize=(12, 7))
-plt.contourf(t_vals, x_vals, np.abs(w_results), levels=20, cmap='viridis')
-plt.colorbar(label='Magnitud de w')
+plt.contourf(t_vals, x_vals, np.real(w_results), levels=20, cmap='viridis')  # Parte real de w
+plt.colorbar(label='Parte real de w')
 plt.xlabel('Tiempo')
 plt.ylabel('Posición x')
-plt.title('Distribución de w')
+plt.title('Distribución de la parte real de w')
 plt.tight_layout()
+plt.savefig("C:\\Users\\yumab\\OneDrive\\Escritorio\\IPT\\loud\\multimedia\\distribuciónw.png")
 plt.show()
-    
+
 #grafica de w en un punto x especifico x util para analizar por ejemplo el extremo de la placa, tensiones, etc.
 plt.figure(figsize=(10, 6))
-plt.plot(t_vals, np.abs(w_at_x_eval))
+plt.plot(t_vals, np.real(w_at_x_eval))  # Parte real de w en x = 9
 plt.xlabel('Tiempo')
-plt.ylabel('Magnitud de w en x = 9')
-plt.title('Evolución temporal de w en x = 9')
+plt.ylabel('Parte real de w en x = 9')
+plt.title('Evolución temporal de la parte real de w en x = 9')
 plt.tight_layout()
+plt.savefig("C:\\Users\\yumab\\OneDrive\\Escritorio\\IPT\\loud\\multimedia\\evolucion_temporal_w_x9.png") 
 plt.show()
