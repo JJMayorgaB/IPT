@@ -15,7 +15,7 @@ def integrand(k_vals, x, t, EI, rho, A, Delta_t, x_o, r_o, t_i):
 
 def w_function(x_vals, t_vals, EI, rho, A, Delta_t, x_o, r_o, t_0, N):
 
-    k_vals_positive = np.logspace(-2, 1, 500)  # Escala logarítmica
+    k_vals_positive = np.logspace(-2, 2, 500)  # Escala logarítmica
     k_vals_negative = -k_vals_positive
     k_vals_full = np.concatenate((k_vals_negative, k_vals_positive))
     
@@ -48,10 +48,10 @@ def w_function(x_vals, t_vals, EI, rho, A, Delta_t, x_o, r_o, t_0, N):
 EI = 1.0
 rho = 1.0
 A = 1.0
-r_o = 0.1
-Delta_t = 1.0
+r_o = 0.2
+Delta_t = 0.5
 x_o = 9.0
-t_1 = 2.0
+t_1 = 1.0
 N = 10  
     
 x_vals = np.linspace(0, 10, 200)  
