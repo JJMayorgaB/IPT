@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 def integrand(k_vals, x, t, EI, rho, A, Delta_t, x_o, r_o, t_i):
 
     with np.errstate(divide='ignore', invalid='ignore'):
-        term1 = np.where(k_vals != 0, np.sin((EI / (rho * A)) * k_vals**2 * (t - t_i)) / k_vals**2, (EI / (rho * A)) * (t - t_i))
+        term1 = np.sin((EI / (rho * A)) * k_vals**2 * (t - t_i)) / k_vals**2
         term2 = np.exp(-0.5 * ((Delta_t * EI / (rho * A))**2) * k_vals**4)
         term3 = np.exp(-2 * (k_vals / r_o)**2)
         term4 = np.exp(1j * k_vals * (x - x_o))

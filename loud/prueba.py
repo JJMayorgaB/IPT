@@ -1,24 +1,17 @@
 import numpy as np
+from scipy.integrate import simpson
 import matplotlib.pyplot as plt
 
-# Crear dos arrays de ejemplo
-x = np.linspace(0, 10, 100)  # Array con 100 puntos entre 0 y 10
-y = np.sin(x)  # Array con los valores de la función seno para cada valor en x
+# Definir el integrando
+def integrand(x):
+    return np.exp(-x**2)
 
-# Crear la figura y el eje
-plt.figure(figsize=(8, 6))
+# Rango de integración (por ser impropia, elegimos un rango suficientemente grande)
+x_vals = np.linspace(-10000, 10000, 200000)  # Malla en el dominio de integración
 
-# Graficar los arrays
-plt.plot(x, y, label='sin(x)', color='b', linewidth=2)
+# Evaluar el integrando
+y_vals = integrand(x_vals)
 
-# Añadir etiquetas y título
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Gráfica de sin(x)')
+integral_result = simpson(y=y_vals, x=x_vals)
 
-# Mostrar leyenda
-plt.legend()
-
-# Mostrar la gráfica
-plt.grid(True)
-plt.show()
+print(f"El valor de la integral es aproximadamente: {integral_result}")
