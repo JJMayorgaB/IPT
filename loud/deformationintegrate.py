@@ -25,7 +25,7 @@ def w_function(x_vals, t_vals, EI, rho, A, Delta_t, x_o, r_o, t_0, N):
     
     w_results = np.zeros_like(x_mesh, dtype=complex)
     
-    for b in range(N + 1):
+    for b in range(N+1):
         
         t_i_val = t_0 * b
         
@@ -52,7 +52,7 @@ r_o = 0.2
 Delta_t = 0.25
 x_o = 9.0
 t_1 = 1.0
-N = 10  
+N = 0  
     
 x_vals = np.linspace(0, 10, 200)  
 t_vals = np.linspace(0, 50, 1000)  
